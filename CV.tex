@@ -1,10 +1,11 @@
 \documentclass[11pt]{article}
 
-
+% 原 PDF 内容迁入版。使用 XeLaTeX 编译；后续简历文字主要在正文中修改。
+% 保留原简历的经历、数值和栏目；项目起止时间在原 PDF 中未提供。
 \setlength{\parindent}{0pt}
 \usepackage{xltxtra}
 \usepackage{hyperref}
-\hypersetup{hidelinks}
+\hypersetup{hidelinks,pdftitle={杨宁简历},pdfauthor={杨宁}}
 \usepackage{url}
 \urlstyle{tt}
 \usepackage{xcolor}
@@ -15,141 +16,106 @@
 \usetikzlibrary{calc}
 \usepackage{fontspec}
 \usepackage{xeCJK}
-\usepackage{enumitem}
-\CJKsetecglue{} %% 取消中文与数字之间的间隙
+\CJKsetecglue{}
 
-
-%% 主文档字体设置
 \setmainfont[
-    Path = fonts/Main/,
-    Extension = .otf,
-    BoldFont = texgyretermes-bold.otf, % 加粗字体
-]{texgyretermes-regular.otf} % 正文字体
-
-% 中文字体设置
+  Path=fonts/Main/,
+  BoldFont=texgyretermes-bold.otf
+]{texgyretermes-regular.otf}
+% 仓库实际提供的中文正文字体为 .ttf，而非原模板写的 .otf。
 \setCJKmainfont[
-    Path = fonts/hansans/,
-    Extension = .ttf,
-    BoldFont = NotoSansSC-Bold.ttf, % 加粗字体
-]{NotoSansSC-Regular.otf} % 正文字体
-
+  Path=fonts/hansans/,
+  BoldFont=NotoSansSC-Bold.ttf
+]{NotoSansSC-Regular.ttf}
 
 \usepackage{relsize}
 \usepackage{xspace}
-
-% 使用 fontawesome（部分图标）
-\usepackage{fontawesome} 
-
-% A4纸，上下左右边距
-\usepackage[
-    a4paper,
-    left=1.2cm,
-    right=1.2cm,
-    top=1.5cm,
-    bottom=1cm,
-    nohead
-]{geometry}
-
-\renewcommand{\baselinestretch}{1.5} % 行间距设为1.5
-
+\usepackage{fontawesome}
+\usepackage[a4paper,left=1.25cm,right=1.25cm,top=1.05cm,bottom=1.05cm,nohead]{geometry}
 \usepackage{titlesec}
 \usepackage{enumitem}
-\setlist{noitemsep} % 取消列表项间的额外间距
-%\setlist{nosep} % 取消所有垂直间距
-\setlist[itemize]{topsep=0.25em, leftmargin=*}
-\setlist[enumerate]{topsep=0.25em, leftmargin=*}
+\setlist[itemize]{nosep,leftmargin=1.35em,label=\textbullet,topsep=0.12em}
+\setlist[enumerate]{nosep,leftmargin=1.5em,label=\arabic*.,topsep=0.12em}
+\setlength{\parskip}{0.10em}
+\setlength{\emergencystretch}{2em}
 
-% --- 用于控制【不同项目之间】的垂直距离 ---
+% 版面参数：用于保持原简历的一页结构。
 \newlength{\interProjectSpacing}
-\setlength{\interProjectSpacing}{0.9em} % <--- 在此调整项目之间的距离
+\setlength{\interProjectSpacing}{0.45em}
 \newcommand{\projectsep}{\vspace{\interProjectSpacing}}
-
-% --- 用于控制【项目标题】与下方【项目描述】的距离 ---
 \newlength{\intraProjectTitleSep}
-\setlength{\intraProjectTitleSep}{0.4em} % <--- 在此调整标题和描述的距离
+\setlength{\intraProjectTitleSep}{0.12em}
 \newcommand{\titlebreak}{\\[\intraProjectTitleSep]}
-
-% --- 用于控制【项目描述】与下方【要点列表】的距离 ---
 \newlength{\intraProjectListTopSep}
-\setlength{\intraProjectListTopSep}{0.2em} % <--- 在此调整描述和列表的距离
+\setlength{\intraProjectListTopSep}{0.12em}
+\newcommand{\cvsection}[2]{\section{\makebox[1.1em][c]{\color{CVBlue}#1}\ #2}}
 
-% =======================================================================
-
-
-\titleformat{\section}         % 定制 \section 命令 
-{\large\bfseries\raggedright} % 将 section 标题设置为大号、粗体且左对齐
-{}{0em}                      % 可用于为所有 section 添加前缀（如“章节...”）
-{}                           % 可用于在标题前插入代码
-[{\color{CVBlue}\titlerule}]  % 在标题后插入一条横线
-\titlespacing*{\section}{0cm}{*1.6}{*1.2}
-
-
+\titleformat{\section}{\large\bfseries\raggedright}{}{0em}{}[{\color{CVBlue}\titlerule}]
+\titlespacing*{\section}{0pt}{0.50em}{0.28em}
 
 \begin{document}
 \pagenumbering{gobble}
+\fontsize{10.5pt}{13.4pt}\selectfont
 
-%%%% 利用tikz来定位照片
-\begin{tikzpicture}[remember picture, overlay] 
-    \node[anchor = north east] at ($(current page.north east)+(-2cm,-1.2cm)$) {\includegraphics[height=3cm]{avatar.jpg}};
-  \end{tikzpicture}%
-  %%%% 利用tikz来定位学校Logo，这里只在第一页显示
-  \begin{tikzpicture}[remember picture, overlay] 
-    \node[anchor = north west] at ($(current page.north west)+(0.5cm,+1.0cm)$) {\includegraphics[height=6cm]{zju.png}};
-  \end{tikzpicture}%
-\centerline{\LARGE\bfseries{胡豆}} 
+% 使用用户桌面的证件照；不使用模板中的浙江大学 Logo。
+\noindent
+\begin{minipage}[c]{0.81\textwidth}
+  {\LARGE\bfseries 杨宁}\par
+  \vspace{0.45em}
+  \faPhone\ 联系电话：15200770151\quad
+  \faEnvelopeO\ 联系邮箱：\href{mailto:ning05045@gmail.com}{ning05045@gmail.com}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.16\textwidth}
+  \raggedleft\includegraphics[height=2.35cm]{avatar.jpg}
+\end{minipage}
 
-\centerline{\normalsize{\faPhone\ 111-1111-1111 \quad \faEnvelopeO\ \href{mailto:3230100000@zju.edu.cn}{3230100000@zju.edu.cn}}} 
+\cvsection{\faUser}{求职意向}
+\textbf{意向职位：计算机视觉算法实习生}\quad 意向城市：上海\quad 随时到岗
 
-\centerline{\normalsize{\faGithubSquare\ \href{https://github.com/maksymilan}{https://github.com/maksymilan} \quad \faRssSquare\ \href{https://maksymilan.github.io/}{https://maksymilan.github.io}}} 
-    
-\section{\makebox[\widthof{\faGraduationCap}][c]{\color{CVBlue}\faGraduationCap}\ 教育背景}    
-\textbf{浙江大学} \hfill 2023.9 -- 至今\\[0.5em] % 标题和正文间加一点距离
-CC98烂坑挖掘工程与技术\quad 大二 
-\begin{itemize}[nosep]
-    \item 相关课程：《烂坑挖掘及基础》、《高级挖坑技巧》、《烂坑数理统计》
-\end{itemize}
+\cvsection{\faGraduationCap}{教育背景}
+\textbf{上海理工大学}\quad 计算机技术（硕士研究生）\hfill 2025.09 -- 至今\par
+专业成绩：GPA 3.49/4.5\par
+主修课程：图像处理与机器视觉、算法设计与分析、计算智能及其应用、并行程序设计、自然语言处理等。
 
-\section{\makebox[\widthof{\faUsers}][c]{\color{CVBlue}\faUsers}\ 项目经历}
+\vspace{0.15em}
+\textbf{上海理工大学}\quad 计算机科学与技术（本科）\hfill 2021.09 -- 2025.06\par
+专业成绩：GPA 3.41/4.5\par
+主修课程：机器学习、数据结构与算法、数据库系统、图像处理、人工智能等。
 
-% --- 第一个项目 ---
-% 将标题行末尾的 \\ 替换为 \titlebreak 命令
-\textbf{98烂坑风控与可视化作战平台} \hfill 2024.08 -- 至今 \titlebreak
-项目描述：为维护cc98社区的讨论纯度、净化“心灵之约”版块风气，本项目旨在对“烂坑”进行科学、严谨的量化分析，并引入\textbf{大语言模型(LLM)}对烂坑帖进行\textbf{自动化情感极性与“离谱指数”标注}。
-% 在 itemize 的选项中，使用 topsep=\intraProjectListTopSep 来控制上边距
-\begin{itemize}[nosep, topsep=\intraProjectListTopSep]
-    \item \textbf{数据与后端}：运用 \textbf{Go} 语言及 \textbf{GORM} 框架，实现对全站“烂坑”帖的7x24小时全天候\textbf{抓取}与\textbf{入库}(MySQL)。
-    \item \textbf{可视化前端}：采用原生 \textbf{HTML/CSS/JS} 构建了“烂坑”实时监控\textbf{作战大屏}。实现了坑主成分分析、挖坑热力图、年度烂坑王榜单等\textbf{可视化图表}，并通过 \textbf{AJAX} 异步刷新，确保数据洞察的实时性。
-    \item \textbf{核心产出}：全面掌握了从\textbf{数据采集、清洗、LLM标注到可视化分析}的“反烂坑”全链路技术。
-\end{itemize}
+\cvsection{\faUsers}{项目经验}
+\textbf{基于 YOLOv8 的焊缝缺陷视觉质检系统}\titlebreak
+\textbf{技术栈：}Python + YOLOv8 + OpenCV + ONNX Runtime + TensorRT\par
+\textbf{项目背景：}针对人工焊缝质检效率低、结果难追溯的问题，开发焊缝缺陷检测系统，实现缺陷定位、OK/NG 判定及检测记录保存。\par
+\textbf{核心工作：}
+\begin{enumerate}[topsep=\intraProjectListTopSep]
+  \item 基于 OpenCV 实现灰度化、CLAHE 增强和图像锐化，提升低对比度焊缝缺陷的可识别性。
+  \item 基于 YOLOv8 完成模型训练与导出，封装 Ultralytics、ONNX Runtime 和 TensorRT 三种推理后端。
+  \item 桌面端部署，支持图片、视频和摄像头检测；使用 FastAPI 提供图片推理接口，并保存 NG 图片和 CSV 记录。
+\end{enumerate}
+\textbf{项目成果：}打通数据处理、模型训练、推理部署和结果追溯流程，形成可部署至 Windows 工控机的焊缝质检系统原型。基于 OpenCV 实现灰度化、CLAHE 增强和图像锐化，在相同数据划分与训练配置下，相比原图训练基线，将验证集 mAP@0.5 从 \textbf{84.72\%} 提升至 \textbf{87.19\%}，提高 \textbf{2.47 个百分点}。完成 YOLOv8 模型导出与 TensorRT FP16 推理部署，在相同条件下，将平均单图推理耗时由 \textbf{33.3ms} 降至 \textbf{31.6ms}，延迟降低 \textbf{5.1\%}。
 
-% 使用 \projectsep 命令来分隔两个项目
 \projectsep
+\textbf{SAM3 LoRA 参数高效微调方案研究}\titlebreak
+\textbf{技术栈：}Python + PyTorch + SAM3 + LoRA + COCO\par
+\textbf{项目背景：}针对 SAM3 适配特定实例分割场景时，全参数微调训练成本较高的问题，研究通过 LoRA 降低训练开销的方案。\par
+\textbf{核心工作：}
+\begin{enumerate}[topsep=\intraProjectListTopSep]
+  \item 整理 COCO 实例分割数据处理流程，梳理图像、目标框、掩码以及正负文本提示如何组成训练样本。
+  \item 基于开源实现，研究 SAM3 注意力模块的 LoRA 注入方式，分析基础模型参数冻结、增量参数训练及权重保存机制。
+  \item 梳理训练损失、验证和推理后处理流程，整理从数据准备到分割结果可视化的完整实验链路。
+\end{enumerate}
+\textbf{项目成果：}完成核心代码整理与本地模型权重配置，形成微调实验方案。考虑到训练集中约 \textbf{42\%} 的目标面积小于 \(32\times32\) 像素，采用增加小目标裁剪样本的方法，将掩码 mAP@50 由 \textbf{36.5\%} 提升至 \textbf{39.4\%}，Pixel IoU 由 \textbf{41.2\%} 提升至 \textbf{43.6\%}。
 
-% --- 第二个项目 ---
-\textbf{AIGC驱动的超进化自动挖坑机 (Agent)} \hfill 2025.02 -- 至今 \titlebreak
-项目描述：为探索心灵版规的边界，以及测试版主锁沉反应速度的极限，本项目基于\textbf{多智能体协作(MCP)与LLM}技术，开发了一款能\textbf{自主“挖坑”与“互坑”}的AI Agent。
-\begin{itemize}[nosep, topsep=\intraProjectListTopSep]
-    \item \textbf{并发与调度}：后端采用 \textbf{Go} 语言，充分利用 \textbf{Goroutine} 和 \textbf{Channel} 的高并发模型，模拟\textbf{用户并发在线}，执行定时挖坑，确保挖坑行动的\textbf{隐蔽性}与\textbf{高效性}。
-    \item \textbf{实时监控与响应}：运用 \textbf{WebSocket} 协议实现了对目标帖子的\textbf{实时监听与交互}。确保在烂坑被识破的第一时间，Agent能光速完成\textbf{“lktp”}或\textbf{反向钓鱼}操作，展现出极高的AI博弈能力。
-    \item \textbf{可视化GUI}：前端使用 \textbf{React} 框架构建了\textbf{后台管理的可视化面板 (Admin Panel)}。可一键下达挖坑指令、动态调整Agent的\textbf{指令}、并实时监控数据。
-\end{itemize}
-
-\section{\makebox[\widthof{\faCogs}][c]{\color{CVBlue}\faCogs}\ 技术栈}
-\begin{itemize}[nosep]
-    \item \textbf{编程语言：} \textbf{Go}, Python, C++
-    \item \textbf{开发工具：} SSH, Git, Vim, MakeFile,LaTex
-    \item \textbf{操作系统：} Linux
-\end{itemize}
-\section{\makebox[\widthof{\faGraduationCap}][c]{\color{CVBlue}\faList}\ 获奖情况}
+\cvsection{\faList}{荣誉证书}
 \begin{itemize}
-    \item CC98年度用户 \hfill 2023.12
-    
+  \item 英语六级，听说读写能力良好，能流利的用英语进行日常交流，能快速浏览英文文献和书籍；
+  \item 中国大学生计算机设计大赛三等奖、上海市大学生计算机应用能力大赛二等奖，凭借 Unity 项目《埋没的〈九章算术〉》获奖，具备游戏关卡设计、特效制作及视觉优化能力；
 \end{itemize}
-    
-\section{\makebox[\widthof{\faInfo}][c]{\color{CVBlue}\faInfo}\ 其他}
-\begin{itemize}[parsep=0.5ex]
-    \item \textbf{技术博客：} \href{https://maksymilan.github.io/}{https://maksymilan.github.io/}
-    \item \textbf{GitHub：} \href{https://github.com/maksymilan}{https://github.com/maksymilan} 
-    \item \textbf{英语水平：} CET-4, CET-6
-\end{itemize}
+
+\cvsection{\faCogs}{专业技能}
+\textbf{编程与框架：}Python、PyTorch、OpenCV、Ultralytics\par
+\textbf{模型与部署：}YOLOv8、SAM 3、LoRA、ONNX Runtime、TensorRT\par
+\textbf{应用开发：}FastAPI、COCO 标注格式\par
+\textbf{开发工具：}Git、Linux
+
 \end{document}
